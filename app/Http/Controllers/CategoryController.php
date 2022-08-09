@@ -28,7 +28,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->category->get();
+        $categories = $this->category->all();
         return response()->json($categories);
     }
 
@@ -131,6 +131,7 @@ class CategoryController extends Controller
         {
             if ($this->category->where('id', $id)->exists()) {
                 $category = $this->category->find($id);
+                $category->name = $request->name;
                 if($category->parent_id > 0){
                     $category->parent_id = $request->parent_id;
                 }
